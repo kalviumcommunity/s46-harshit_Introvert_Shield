@@ -1,4 +1,9 @@
 {
+
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+
   "name": "introvert-shield",
   "version": "1.0.0",
   "description": "List of places an introvert should avoid",
@@ -8,4 +13,5 @@
   },
   "author": "Harshit",
   "license": "ISC"
+
 }
