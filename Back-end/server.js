@@ -1,3 +1,5 @@
+const routes = require("./routes")
+
 const express = require('express')
 const mongoose = require('mongoose')
 require('dotenv').config()
@@ -14,6 +16,9 @@ database.on('error', console.error.bind(console, 'MongoDB connection error'))
 database.once('open', () => {
     console.log("Connected to MongoDB using Mongoose")
 })
+
+app.use(express.json())
+app.use("/introvert",routes)
 
 app.get('/', (req, res) => {
     if(database.readyState === 1){
