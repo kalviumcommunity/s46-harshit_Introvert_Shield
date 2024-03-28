@@ -1,0 +1,20 @@
+meta {
+  name: Create Testing
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/introverts
+  body: json
+  auth: none
+}
+
+body:json {
+  {"Place_Type":"XYZ",
+  "Crowd_Density":"Low",
+  "Seating_Comfort":"Low",
+  "Wifi_Availability":"No",
+  "Image_Link":"kalvium.com" 
+  }
+}
