@@ -1,5 +1,4 @@
 const routes = require("./routes")
-
 const express = require('express')
 const mongoose = require('mongoose')
 require('dotenv').config()
@@ -18,9 +17,9 @@ database.once('open', () => {
 })
 
 app.use(express.json())
-app.use("/introvert",routes)
+app.use("/",routes)
 
-app.get('/', (req, res) => {
+app.get('/status', (req, res) => {
     if(database.readyState === 1){
         res.send("Connected to MongoDB")
     }else{

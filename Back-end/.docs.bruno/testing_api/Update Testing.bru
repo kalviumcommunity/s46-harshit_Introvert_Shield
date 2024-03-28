@@ -1,0 +1,15 @@
+meta {
+  name: Update Testing
+  type: http
+  seq: 3
+}
+
+patch {
+  url: http://localhost:3000/introverts/65c1fa8dabfd6a1cca874ff5
+  body: json
+  auth: none
+}
+
+body:json {
+  {"Place_Type":"Busy Cafeteria"}
+}
