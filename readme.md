@@ -33,4 +33,6 @@ The "Introvert Shield" is to help introverts navigate public spaces by identifyi
 8. **Real-time Stress Levels:**
    Integrate with wearables or sensors to gather real-time stress level data, allowing users to be proactive in avoiding stressful environments.
 
-**Deployed link:** https://introvert-shield.onrender.com
+**Deployed link Back-End:** https://introvert-shield.onrender.com
+
+**Deployed link Front-End:** https://introvert-shield.netlify.app
