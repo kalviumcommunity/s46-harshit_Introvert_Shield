@@ -1,12 +1,11 @@
+import React from 'react'
+import Post from './Post'
 
-const Home = () => {
+function Home() {
   return (
-    <>
     <div>
-      <h1>Welcome to Intovert Shield</h1>
-      <h3>A Place made for and made by Intovert People.</h3>
+      <Post />
     </div>
-    </>
   )
 }
 
