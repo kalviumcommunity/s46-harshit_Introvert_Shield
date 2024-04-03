@@ -1,15 +1,20 @@
-import React from 'react'
 import "./Post.css";
 
-function Post() {
+function Post({
+    Crowd_Density,
+    Image_Link,
+    Place_Type,
+    Seating_Comfort,
+    WiFi_Availability
+}) {
   return (
   <>
   <div className="post">
-    <h1 className="post-title">Place Type: Nightclub</h1>
-    <img className="post-image" src="https://th.bing.com/th/id/R.7cacea38b0a5dda9b541ba24d3df04d5?rik=JUgTM…" alt="" />
-    <h2 className="post-subtitle">Crowd Density: Very High</h2>
-    <p className="post-detail">Seating Comfort: Uncomfortable</p>
-    <p className="post-detail">Wi-Fi Availability: Limited</p>
+    <h1 className="post-title">Place Type: {Place_Type}</h1>
+    <img className="post-image" src={Image_Link} alt="" />
+    <h2 className="post-subtitle">Crowd Density: {Crowd_Density}</h2>
+    <p className="post-detail">Seating Comfort: {Seating_Comfort}</p>
+    <p className="post-detail">Wi-Fi Availability: {WiFi_Availability}</p>
     <p className="post-meta">Posted by Qwerty</p>
 </div>
     </>

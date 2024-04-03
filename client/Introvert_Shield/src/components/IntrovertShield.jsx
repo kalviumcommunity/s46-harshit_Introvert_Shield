@@ -1,24 +1,23 @@
-// import React from 'react'
 import { Link } from "react-router-dom";
+import "./Introvert.css"
 
 function IntrovertShield() {
 
   return (
-    <div>
        <>
-      <div className="wrapper">
-        <h2>Welcome to Intovert Shield</h2>
+      <div className="introvert-wrapper">
+        <h2 className='introvert-heading'>Welcome to Intovert Shield</h2>
         <div>
-          <h1 className="top">
+          <h1 className="introvert-subheading">
           A Place made for and made by Intovert People.
           </h1>
         </div>
 
         <div className="buttons">
-          <button className="btnone button singup">
+          <button className="introvert-btnone button singup">
             <Link to="/signup">Sign Up</Link>
           </button>
-          <button className="btnone button log">
+          <button className="introvert-btnone button log">
             <Link to="/login">Login</Link>
           </button>
         </div>
@@ -27,7 +26,6 @@ function IntrovertShield() {
         All rights reserved. This project was created by Harshit.
       </p>
     </>
-    </div>
   )
 }
 
