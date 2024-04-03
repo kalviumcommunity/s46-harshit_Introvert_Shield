@@ -17,11 +17,9 @@ router.get('/users', async (req, res) => {
 // Read all Introverts
 router.get('/introverts', async (req, res) => {
     try {
-        console.log("hi")
         const introverts = await Introvert.find();
         res.json(introverts);
     } catch (err) {
-        console.log("hi")
         res.status(500).json({ message: err.message });
     }
 });
