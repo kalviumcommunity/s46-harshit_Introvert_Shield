@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Post from './Post'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
@@ -19,6 +20,11 @@ function Home() {
 
   return (
     <div>
+      <div>
+      <button className="posts">
+        <Link to="/createPlace">Create PLace</Link>
+      </button>
+      </div>
       <div className="posts-container">
         {data &&
           data.map((post) => (
