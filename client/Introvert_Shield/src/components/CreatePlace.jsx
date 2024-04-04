@@ -83,7 +83,7 @@ function CreatePlace() {
                 <input
                   className="introvert-input__field"
                   type="text"
-                  value={place}
+                  value={comfort}
                   onChange={(e) => setComfort(e.target.value)}
                 />
                 <p className="introvert-input__description">
