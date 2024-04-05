@@ -15,15 +15,13 @@
   
   .introvert-modal__header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
     margin-bottom: 20px;
   }
   
   .introvert-modal__title {
     font-size: 30px;
     font-weight: bold;
-    margin-left: 83px;
   }
   
   .introvert-modal__body {
