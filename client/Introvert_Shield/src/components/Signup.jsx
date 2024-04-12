@@ -19,6 +19,7 @@ const Signup = () => {
         console.error("Passwords do not match");
       } else {
         try {
+          // eslint-disable-next-line no-unused-vars
           const response = await axios.post(
             import.meta.env.VITE_API_URL_USERS,                                 
             {
@@ -29,7 +30,8 @@ const Signup = () => {
             }
           );
           console.log("Signup Successful");
-          setCookie('username', data.Username, 365,)
+          setCookie('username', data.Username, 1)
+          setCookie('jwtToken', response.data, 1)
 
             navigate("/home");
 

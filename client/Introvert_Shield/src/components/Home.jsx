@@ -9,6 +9,8 @@ function Home() {
   const [data, setData] = useState([]);
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
+  const jwtToken = getCookie("jwtToken");
+
 
   useEffect(() => {
     const usernameFromCookie = getCookie("username");
@@ -26,16 +28,16 @@ function Home() {
   }
   useEffect(() => {
     axios
-      .get("http://localhost:3000/introverts")
-
+      .get(import.meta.env.VITE_API_URL ,{
+        headers: { authorization: `Bearer ${jwtToken}` },
+      })
       .then((response) => {
-        console.log(response.data);
         setData(response.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data.message);
       });
-  }, []);
+  },[]);
 
   return (
     <div>

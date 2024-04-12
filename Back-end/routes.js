@@ -3,11 +3,32 @@ const router = express.Router();
 const { Introvert, User } = require("./schema");
 const bcrypt = require("bcrypt");
 const { userJoiSchema, introvertJoiSchema } = require("./joiSchema");
+const jwt = require("jsonwebtoken");
 
 router.use(express.json());
 
+const createToken = (payload) => {
+  return jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: 1 * 24 * 60 * 60,
+  });
+};
+
+const authenticate = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token || !token.startsWith("Bearer ")) {
+    return res.status(401).send({ message: "Unauthorized: No token provided" });
+  }
+  const authToken = token.split("Bearer ")[1];
+  try {
+    const decoded = jwt.verify(authToken, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return res.status(403).send({ message: "Forbidden: Invalid token" });
+  }
+};
 // Read all users
-router.get("/users", async (req, res) => {
+router.get("/users", authenticate, async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
@@ -17,7 +38,7 @@ router.get("/users", async (req, res) => {
 });
 
 // Read all Introverts
-router.get("/introverts", async (req, res) => {
+router.get("/introverts", authenticate, async (req, res) => {
   try {
     const introverts = await Introvert.find();
     res.json(introverts);
@@ -33,7 +54,9 @@ router.post("/users", async (req, res) => {
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
     } else {
-      const usernameExists = await User.findOne({ username: req.body.username });
+      const usernameExists = await User.findOne({
+        username: req.body.username,
+      });
       if (usernameExists) {
         return res.status(409).json({ message: "Username already exists" });
       }
@@ -44,24 +67,26 @@ router.post("/users", async (req, res) => {
 
       const hashedPassword = await bcrypt.hash(req.body.password, 12);
 
-
       const user = new User({
         username: req.body.username,
         email: req.body.email,
-        password: hashedPassword
+        password: hashedPassword,
       });
       const newUser = await user.save();
-      res.status(201).json(newUser);
-    }
-      
+      const token = createToken({
+        userId: newUser._id,
+        username: newUser.username,
+      });
 
+      res.status(201).json(token);
+    }
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
 // Create a new Introvert
-router.post("/introverts", async (req, res) => {
+router.post("/introverts", authenticate, async (req, res) => {
   const { error } = introvertJoiSchema.validate(req.body);
   if (error) {
     return res.status(400).json({ message: error.details[0].message });
@@ -70,8 +95,9 @@ router.post("/introverts", async (req, res) => {
     Place_Type: req.body.Place_Type,
     Crowd_Density: req.body.Crowd_Density,
     Seating_Comfort: req.body.Seating_Comfort,
-    Wifi_Availability: req.body.Wifi_Availability,
+    WiFi_Availability: req.body.WiFi_Availability,
     Image_Link: req.body.Image_Link,
+    Posted_By: req.body.Posted_By
   });
 
   try {
@@ -86,32 +112,34 @@ router.post("/users/login", async (req, res) => {
   try {
     const { username, password } = req.body;
     if (!username || !password) {
-      return res.status(400).json({ message: "Username and password are required" })
+      return res
+        .status(400)
+        .json({ message: "Username and password are required" });
     }
 
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(400).json({ message: "User does not exist" })
-    } 
+      return res.status(400).json({ message: "User does not exist" });
+    }
 
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
-      return res.status(401).json({ message: "Invalid password" })
+      return res.status(401).json({ message: "Invalid password" });
     }
 
-    const responseData = {
+    const token = createToken({
       userId: user._id,
-      username: user.username
-    };
+      username: user.username,
+    });
 
-    res.status(200).json(responseData);
+    res.status(200).json(token);
   } catch (err) {
-    res.status(500).json({ message: "Internal server error" })
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
 // Update a user
-router.patch("/users/:id", async (req, res) => {
+router.patch("/users/:id", authenticate, async (req, res) => {
   try {
     const { error } = userJoiSchema.validate(req.body);
     if (error) {
@@ -130,7 +158,7 @@ router.patch("/users/:id", async (req, res) => {
 });
 
 // Update a Introvert
-router.patch("/introverts/:id", async (req, res) => {
+router.patch("/introverts/:id", authenticate, async (req, res) => {
   try {
     const { error } = introvertJoiSchema.validate(req.body);
     if (error) {
@@ -151,7 +179,7 @@ router.patch("/introverts/:id", async (req, res) => {
 });
 
 // Get Users by ID
-router.get("/users/:id", async (req, res) => {
+router.get("/users/:id", authenticate, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
@@ -164,7 +192,7 @@ router.get("/users/:id", async (req, res) => {
 });
 
 // Get introvert by ID
-router.get("/introverts/:id", async (req, res) => {
+router.get("/introverts/:id", authenticate, async (req, res) => {
   try {
     const introvert = await Introvert.findById(req.params.id);
     if (!introvert) {
@@ -177,7 +205,7 @@ router.get("/introverts/:id", async (req, res) => {
 });
 
 // Delete a user
-router.delete("/users/:id", async (req, res) => {
+router.delete("/users/:id", authenticate, async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
     if (!deletedUser) {
@@ -190,7 +218,7 @@ router.delete("/users/:id", async (req, res) => {
 });
 
 // Delete a Introvert
-router.delete("/introverts/:id", async (req, res) => {
+router.delete("/introverts/:id", authenticate, async (req, res) => {
   try {
     const deletedIntrovert = await Introvert.findByIdAndDelete(req.params.id);
     if (!deletedIntrovert) {
