@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./CreatePlace.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "./Cookies";
 
 function CreatePlace() {
   const [place, setPlace] = useState("");
@@ -9,6 +10,9 @@ function CreatePlace() {
   const [density, setDensity] = useState("");
   const [wifi, setWifi] = useState("");
   const [comfort, setComfort] = useState("");
+  const jwtToken = getCookie("jwtToken");
+  const postedby = getCookie('username')
+
   const nav = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -16,12 +20,17 @@ function CreatePlace() {
     try {
       // eslint-disable-next-line no-unused-vars
       const response = await axios
-        .post("http://localhost:3000/introverts", {
+        .post(import.meta.env.VITE_API_URL, {
           Place_Type: place,
           Image_Link: image,
           Crowd_Density: density,
           Seating_Comfort: comfort,
-          Wifi_Availability: wifi,
+          WiFi_Availability: wifi,
+          Posted_By: postedby
+          
+        },
+        {
+          headers: { authorization: `Bearer ${jwtToken}` },
         })
         .then(nav("/home"));
     } catch (error) {

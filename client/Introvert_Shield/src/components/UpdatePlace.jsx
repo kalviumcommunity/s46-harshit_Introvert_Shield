@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { getCookie } from "./Cookies";
 
 function UpdatePlace() {
   const { id } = useParams();
@@ -10,19 +11,23 @@ function UpdatePlace() {
   const [density, setDensity] = useState("");
   const [wifi, setWifi] = useState("");
   const [comfort, setComfort] = useState("");
+  const jwtToken = getCookie("jwtToken");
+  const postedby = getCookie("username")
+
 
   const nav = useNavigate()
 
   useEffect(() => {
-    axios.get(import.meta.env.VITE_API_URL + id).then((data) => {
-      console.log(data);
+    axios.get(import.meta.env.VITE_API_URL + id, {
+      headers: { authorization: `Bearer ${jwtToken}` },
+    }).then((data) => {
       setComfort(data.data.Seating_Comfort);
       setDensity(data.data.Crowd_Density);
       setImage(data.data.Image_Link);
       setPlace(data.data.Place_Type);
       setWifi(data.data.WiFi_Availability);
     });
-  }, [id]);
+  }, [id, jwtToken]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -34,14 +39,17 @@ function UpdatePlace() {
             Image_Link: image,
             Crowd_Density: density,
             Seating_Comfort: comfort,
-            Wifi_Availability: wifi,
+            WiFi_Availability: wifi,
+            Posted_By: postedby
+        }, {
+          headers: { authorization: `Bearer ${jwtToken}` },
         }
       )
       .then(() => {
           nav("/home");
       })
       .catch((err) => {
-        console.error(err)
+        console.error(err.response.data)
       });
   };
 

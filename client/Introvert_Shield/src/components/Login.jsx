@@ -21,7 +21,8 @@ function Login() {
         });
         console.log("Login Successful");
   
-        setCookie("username", data.Username, 365);
+        setCookie("username", data.Username, 1);
+        setCookie('jwtToken', response.data, 1)
   
         setTimeout(() => {
           navigate("/home");

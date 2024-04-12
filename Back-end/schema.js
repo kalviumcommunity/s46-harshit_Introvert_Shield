@@ -11,11 +11,14 @@ const introvertSchema = new mongoose.Schema({
     Seating_Comfort:{
         type: String,
     },
-    Wifi_Availability: {
+    WiFi_Availability: {
         type: String,
     },
     Image_Link: {
         type: String,
+    },
+    Posted_By: {
+        type: String
     }
 })
 

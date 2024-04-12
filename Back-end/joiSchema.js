@@ -12,7 +12,8 @@ const userJoiSchema = joi.object({
     Crowd_Density: joi.string().max(32),
     Seating_Comfort: joi.string(),
     Image_Link: joi.string(),
-    Wifi_Availability: joi.string(),
+    WiFi_Availability: joi.string(),
+    Posted_By: joi.string()
   });
   
   module.exports = {
