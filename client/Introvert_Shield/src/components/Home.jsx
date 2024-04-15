@@ -7,6 +7,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Home() {
   const [data, setData] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [selected, setSelected] = useState("All Users")
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
   const jwtToken = getCookie("jwtToken");
@@ -26,6 +28,10 @@ function Home() {
     setUsername("");
     navigate("/");
   }
+  const handeSelection = (e) => {
+    setSelected(e.target.value);
+  };
+  
   useEffect(() => {
     axios
       .get(import.meta.env.VITE_API_URL ,{
@@ -39,6 +45,25 @@ function Home() {
       });
   },[]);
 
+  useEffect(() => {
+    axios
+      .get(import.meta.env.VITE_API_URL_USERS, {
+        headers: { authorization: `Bearer ${jwtToken}` },
+      })
+      .then((response) => {
+        setUsers(response.data)
+      })
+      .catch((err) => {
+        console.error(err.response.data.message);
+      });
+  }, []);
+  const Posts = data.filter((posts)=>{
+    if(selected==='All Users'){
+      return posts;
+    }else{
+      return posts.Posted_By===selected;
+    }
+  })
   return (
     <div>
       <div>
@@ -50,9 +75,16 @@ function Home() {
         <button className="posts">
           <Link to="/createPlace">Create PLace</Link>
         </button>
+        <select name="users" className="select-container"  onChange={handeSelection}>
+        <option value="All Users">All Users</option>
+        {users &&
+          users.map((user) => (
+            <option value={user.username} className="options"  key={user._id}>{user.username}</option>
+          ))}
+      </select>
       </div>
       <div className="posts-container">
-        {data && data.map((post) => <Post {...post} key={post._id} />)}
+        {Posts && Posts.map((post) => <Post {...post} key={post._id} />)}
       </div>
     </div>
   );
