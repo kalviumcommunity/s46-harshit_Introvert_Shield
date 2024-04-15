@@ -23,7 +23,7 @@ function IntrovertShield() {
         </div>
       </div>
       <p className="copyright">
-        All rights reserved. This project was created by Harshit.
+      &copy; All rights reserved. This project was created by Harshit.
       </p>
     </>
   )
