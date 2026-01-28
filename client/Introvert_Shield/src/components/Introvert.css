@@ -1,0 +1,172 @@
+/* ============================================
+   INTROVERT SHIELD - LANDING PAGE STYLES
+   Clean, minimal design
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ============ Landing Page Container ============ */
+.landing-page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+    position: relative;
+    font-family: 'Inter', sans-serif;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Subtle background glow */
+.landing-page::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+    top: -150px;
+    right: -150px;
+    pointer-events: none;
+}
+
+.landing-page::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.07) 0%, transparent 70%);
+    bottom: -100px;
+    left: -100px;
+    pointer-events: none;
+}
+
+/* ============ Content Section ============ */
+.landing-content {
+    position: relative;
+    z-index: 10;
+    max-width: 600px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============ Typography ============ */
+.landing-title {
+    font-size: 48px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 12px;
+    letter-spacing: -1px;
+    line-height: 1.1;
+}
+
+.landing-title .highlight {
+    background: linear-gradient(135deg, #818cf8 0%, #10b981 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.landing-tagline {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #818cf8;
+    margin: 0 0 20px;
+}
+
+.landing-subtitle {
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0 36px;
+    line-height: 1.5;
+}
+
+/* ============ Buttons ============ */
+.landing-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.landing-btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.landing-btn.primary {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+}
+
+.landing-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+}
+
+.landing-btn.secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.landing-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ============ Copyright ============ */
+.landing-copyright {
+    position: absolute;
+    bottom: 24px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 600px) {
+    .landing-title {
+        font-size: 32px;
+    }
+
+    .landing-subtitle {
+        font-size: 15px;
+    }
+
+    .landing-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .landing-btn {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+    }
+}

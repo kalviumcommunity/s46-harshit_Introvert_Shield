@@ -1,0 +1,233 @@
+/* ============================================
+   FORM PAGE STYLES (CreatePlace & UpdatePlace)
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+.form-page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+    font-family: 'Inter', sans-serif;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+/* Subtle Background Glow */
+.form-page::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+    top: -150px;
+    right: -150px;
+    pointer-events: none;
+}
+
+/* ============ Form Card ============ */
+.form-card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 40px 32px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============ Header ============ */
+.form-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.form-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.25);
+}
+
+.form-icon svg {
+    width: 28px;
+    height: 28px;
+    color: white;
+}
+
+.form-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 6px;
+}
+
+.form-subtitle {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+/* ============ Form Body ============ */
+.form-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Input Group */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-input-wrapper svg {
+    position: absolute;
+    left: 14px;
+    width: 18px;
+    height: 18px;
+    color: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 14px 14px 44px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.form-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.form-input:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.form-input:focus {
+    border-color: #6366f1;
+    background: rgba(99, 102, 241, 0.06);
+}
+
+.form-input:focus+svg,
+.form-input-wrapper:focus-within svg {
+    color: #818cf8;
+}
+
+.form-hint {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+}
+
+/* ============ Footer / Actions ============ */
+.form-footer {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.form-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    border: none;
+}
+
+.form-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.form-btn.primary {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+}
+
+.form-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+}
+
+.form-btn.secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.form-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 500px) {
+    .form-card {
+        padding: 32px 20px;
+    }
+
+    .form-title {
+        font-size: 22px;
+    }
+
+    .form-footer {
+        flex-direction: column;
+    }
+}
