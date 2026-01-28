@@ -1,0 +1,172 @@
+/* ============================================
+   HOME PAGE STYLES
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+.home-page {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+    font-family: 'Inter', sans-serif;
+}
+
+.home-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 24px 40px;
+}
+
+/* ============ Header Section ============ */
+.home-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.home-header-content {
+    flex: 1;
+}
+
+.home-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 8px;
+    letter-spacing: -0.5px;
+}
+
+.home-subtitle {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+/* Actions */
+.home-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.home-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.home-btn.primary {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+}
+
+.home-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+}
+
+/* Filter Dropdown */
+.home-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.home-filter svg {
+    width: 16px;
+    height: 16px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.home-select {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+    min-width: 100px;
+}
+
+.home-select option {
+    background: #1a1a2e;
+    color: white;
+}
+
+/* ============ Posts Grid ============ */
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+/* Empty State */
+.home-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.home-empty svg {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+    opacity: 0.4;
+}
+
+.home-empty p {
+    font-size: 15px;
+    margin: 0;
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 768px) {
+    .home-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .home-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .home-btn.primary {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .home-filter {
+        flex: 1;
+    }
+
+    .home-title {
+        font-size: 26px;
+    }
+
+    .posts-grid {
+        grid-template-columns: 1fr;
+    }
+}

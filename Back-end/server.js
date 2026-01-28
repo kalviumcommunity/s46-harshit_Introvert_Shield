@@ -6,10 +6,7 @@ require('dotenv').config()
 const app = express()
 
 const mongoURI = process.env.mongoURI
-mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}) 
+mongoose.connect(mongoURI) 
 
 const database = mongoose.connection
 database.on('error', console.error.bind(console, 'MongoDB connection error'))

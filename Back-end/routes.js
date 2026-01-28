@@ -157,21 +157,30 @@ router.patch("/users/:id", authenticate, async (req, res) => {
   }
 });
 
-// Update a Introvert
+// Update a Introvert (only owner can update)
 router.patch("/introverts/:id", authenticate, async (req, res) => {
   try {
     const { error } = introvertJoiSchema.validate(req.body);
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
     }
+    
+    // Check if the place exists
+    const existingIntrovert = await Introvert.findById(req.params.id);
+    if (!existingIntrovert) {
+      return res.status(404).json({ message: "Place not found" });
+    }
+    
+    // Check if the logged-in user is the owner
+    if (existingIntrovert.Posted_By !== req.user.username) {
+      return res.status(403).json({ message: "You can only edit places you created" });
+    }
+    
     const introvert = await Introvert.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
     );
-    if (!introvert) {
-      return res.status(404).json({ message: "Introvert not found" });
-    }
     res.json(introvert);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -217,14 +226,22 @@ router.delete("/users/:id", authenticate, async (req, res) => {
   }
 });
 
-// Delete a Introvert
+// Delete a Introvert (only owner can delete)
 router.delete("/introverts/:id", authenticate, async (req, res) => {
   try {
-    const deletedIntrovert = await Introvert.findByIdAndDelete(req.params.id);
-    if (!deletedIntrovert) {
-      return res.status(404).json({ message: "Introvert not found" });
+    // Check if the place exists
+    const existingIntrovert = await Introvert.findById(req.params.id);
+    if (!existingIntrovert) {
+      return res.status(404).json({ message: "Place not found" });
     }
-    res.json({ message: "Introvert deleted" });
+    
+    // Check if the logged-in user is the owner
+    if (existingIntrovert.Posted_By !== req.user.username) {
+      return res.status(403).json({ message: "You can only delete places you created" });
+    }
+    
+    await Introvert.findByIdAndDelete(req.params.id);
+    res.json({ message: "Place deleted successfully" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

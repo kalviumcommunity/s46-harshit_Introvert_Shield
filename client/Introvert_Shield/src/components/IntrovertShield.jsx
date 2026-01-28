@@ -1,32 +1,29 @@
 import { Link } from "react-router-dom";
-import "./Introvert.css"
+import "./Introvert.css";
 
 function IntrovertShield() {
-
   return (
-       <>
-      <div className="introvert-wrapper">
-        <h2 className='introvert-heading'>Welcome to Intovert Shield</h2>
-        <div>
-          <h1 className="introvert-subheading">
-          A Place made for and made by Intovert People.
-          </h1>
-        </div>
+    <div className="landing-page">
+      <div className="landing-content">
+        <h1 className="landing-title">
+          Welcome to <span className="highlight">Introvert Shield</span>
+        </h1>
+        <p className="landing-tagline">Safe spaces for quiet minds</p>
+        <p className="landing-subtitle">
+          A community built for and by introverts.
+        </p>
 
-        <div className="buttons">
-          <button className="introvert-btnone button singup">
-            <Link to="/signup">Sign Up</Link>
-          </button>
-          <button className="introvert-btnone button log">
-            <Link to="/login">Login</Link>
-          </button>
+        <div className="landing-buttons">
+          <Link to="/signup" className="landing-btn primary">Sign Up</Link>
+          <Link to="/login" className="landing-btn secondary">Login</Link>
         </div>
       </div>
-      <p className="copyright">
-      &copy; All rights reserved. This project was created by Harshit.
+
+      <p className="landing-copyright">
+        © All rights reserved. This project was created by Harshit.
       </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default IntrovertShield
+export default IntrovertShield;
